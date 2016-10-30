@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>WebGL Globe</title>
+    <title>Temperature distribution accross the World</title>
     <meta charset="utf-8">
     <style type="text/css">
       html {
@@ -19,7 +19,6 @@
       }
 
       #info {
-
         font-size: 11px;
         position: absolute;
         bottom: 5px;
@@ -27,7 +26,6 @@
         border-radius: 3px;
         right: 10px;
         padding: 10px;
-
       }
 
       #currentInfo {
@@ -35,9 +33,7 @@
         position: absolute;
         left: 20px;
         top: 63px;
-
         background-color: rgba(0,0,0,0.2);
-
         border-top: 1px solid rgba(255,255,255,0.4);
         padding: 10px;
       }
@@ -106,15 +102,16 @@
   <div id="container"></div>
 
   <div id="info">
-    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+    <strong><a href="http://www.chromeexperiments.com/globe">Average Temperature Distribution on WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by <a href="https://nilaymehta.github.io/">Nilay Mehta</a>, Georgia Tech <span class="bull">&bull;</span> Data acquired from <a href="https://openweathermap.org/current">OpenWeatherMap</a>
   </div>
 
   <div id="currentInfo">
-    <span id="year1990" class="year">1990</span>
+    <span id="tempdatanormal" class="temp">Normal</span>
+    <span id="tempdataexaggerated" class="temp">Exaggerated</span>
   </div>
 
   <div id="title">
-    World Population
+    Global Tempratures for Spring(mid-March 2014)
   </div>
 
   <a id="ce" href="http://www.chromeexperiments.com/globe">
@@ -131,7 +128,7 @@
       Detector.addGetWebGLMessage();
     } else {
 
-      var years = ['1990'];
+      var tempdata = ['normal', 'exaggerated'];
       var container = document.getElementById('container');
       var globe = new DAT.Globe(container);
 
@@ -140,21 +137,21 @@
 
       var settime = function(globe, t) {
         return function() {
-          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-          var y = document.getElementById('year'+years[t]);
-          if (y.getAttribute('class') === 'year active') {
+          new TWEEN.Tween(globe).to({time: t/tempdata.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+          var y = document.getElementById('tempdata'+tempdata[t]);
+          if (y.getAttribute('class') === 'temp active') {
             return;
           }
-          var yy = document.getElementsByClassName('year');
+          var yy = document.getElementsByClassName('temp');
           for(i=0; i<yy.length; i++) {
-            yy[i].setAttribute('class','year');
+            yy[i].setAttribute('class','temp');
           }
-          y.setAttribute('class', 'year active');
+          y.setAttribute('class', 'temp active');
         };
       };
 
       for(var i = 0; i<years.length; i++) {
-        var y = document.getElementById('year'+years[i]);
+        var y = document.getElementById('tempdata'+tempdata[i]);
         y.addEventListener('mouseover', settime(globe,i), false);
       }
 
@@ -163,7 +160,7 @@
 
 
       xhr = new XMLHttpRequest();
-      xhr.open('GET', './population909500new.json', true);
+      xhr.open('GET', './temperaturedata.json', true);
       xhr.onreadystatechange = function(e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
