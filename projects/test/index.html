@@ -10,7 +10,7 @@
       body {
         margin: 0;
         padding: 0;
-        background: #35586C url(./loading.gif) center center no-repeat;
+        background: #000000 url(./loading.gif) center center no-repeat;
         color: #ffffff;
         font-family: sans-serif;
         font-size: 13px;
@@ -138,7 +138,7 @@
 
       console.log(globe);
       var i, tweens = [];
-      t = "#35586C"
+
       var settime = function(globe, t) {
         return function() {
           new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
@@ -176,7 +176,7 @@
             globe.createPoints();
             settime(globe,0)();
             globe.animate();
-            document.body.style.backgroundImage = '#35586C'; // remove loading
+            document.body.style.backgroundImage = '#000000'; // remove loading
           }
         }
       };
