@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
-    <title>WebGL Globe</title>
+    <title>Global Temperature Distribution for March 2014</title>
     <meta charset="utf-8">
     <style type="text/css">
       html {
@@ -25,13 +25,13 @@
         bottom: 5px;
         background-color: rgba(0,0,0,0.8);
         border-radius: 3px;
-        right: 10px;
+        right: 20px;
         padding: 10px;
 
       }
 
       #currentInfo {
-        width: 270px;
+        width: 315px;
         position: absolute;
         left: 20px;
         top: 63px;
@@ -58,11 +58,11 @@
       #title {
         position: absolute;
         top: 20px;
-        width: 270px;
+        width: 350px;
         left: 20px;
         background-color: rgba(0,0,0,0.2);
         border-radius: 3px;
-        font: 20px Georgia;
+        font: 23px Georgia;
         padding: 10px;
       }
 
@@ -106,17 +106,16 @@
   <div id="container"></div>
 
   <div id="info">
-    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+    <strong><a href="https://nilaymehta.github.io/projects/cc/tempdist.html">Average Temperature Distribution on WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by <a href="https://nilaymehta.github.io/">Nilay Mehta</a>, Georgia Tech <span class="bull">&bull;</span> Data acquired from <a href="https://openweathermap.org/current">OpenWeatherMap</a>
   </div>
 
   <div id="currentInfo">
-    <span id="year1990" class="year">1990</span>
-    <span id="year1995" class="year">1995</span>
-    <span id="year2000" class="year">2000</span>
+    <center><span id="year1990" class="year">Normal</span>
+    <span id="year1995" class="year">Exaggerated</span></center>
   </div>
 
   <div id="title">
-    World Population
+    Global Tempratures for Spring
   </div>
 
   <a id="ce" href="http://www.chromeexperiments.com/globe">
@@ -133,7 +132,7 @@
       Detector.addGetWebGLMessage();
     } else {
 
-      var years = ['1990','1995','2000'];
+      var years = ['1990', '1995'];
       var container = document.getElementById('container');
       var globe = new DAT.Globe(container);
 
@@ -165,7 +164,7 @@
 
 
       xhr = new XMLHttpRequest();
-      xhr.open('GET', './population909500.json', true);
+      xhr.open('GET', './temperaturedata.json', true);
       xhr.onreadystatechange = function(e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
@@ -177,7 +176,7 @@
             globe.createPoints();
             settime(globe,0)();
             globe.animate();
-            document.body.style.backgroundImage = 'none'; // remove loading
+            document.body.style.backgroundImage = '#000000'; // remove loading
           }
         }
       };
