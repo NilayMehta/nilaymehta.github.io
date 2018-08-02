@@ -6,11 +6,19 @@
     <title>BofA Deeplink 2</title>
     <style>@media screen and (max-device-width:480px){body{-webkit-text-size-adjust:none}}</style>
     <script>
-    window.onload = function() {
+    function loadMessage(message) {
         <!-- window.location = 'yourapp://app.com/?screen=xxxxx'; -->
-        window.location = 'android-app://com.infonow.bofa.test/bofa://BAConversation:Entry?' + 'message="What is my balance?"';
+        window.location = 'android-app://com.infonow.bofa.test/bofa://BAConversation:Entry?message=' + message;
         setTimeout("window.location = 'http://bankofamerica.com", 1000);
     }
+        
+    window.onload = loadMessage("what is my balance?");
+       
+
+function myFunction(id)
+{
+    window.location='/Mypage?Name='+id;
+}
     </script>
 </head>
 <body>
